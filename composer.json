@@ -1,0 +1,27 @@
+{
+    "name": "xiaorenaishu/redis.sdk",
+    "description": "基于redis的通用功能组件：分布式原子锁，原子计数器，通用缓存基类等",
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "xiaorenaishu",
+            "email": "1007795890@qq.com"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "RedisComponent\\": "src/RedisComponent/"
+        }
+    },
+    "minimum-stability": "dev",
+    "require": {
+        "illuminate/redis": ">=5.0.0"
+    },
+    "config": {
+        "preferred-install": "dist",
+        "sort-packages": true,
+        "secure-http": false,
+        "optimize-autoloader": true
+    }
+}
