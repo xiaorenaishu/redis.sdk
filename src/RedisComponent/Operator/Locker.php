@@ -2,7 +2,6 @@
 
 namespace RedisComponent\Operator;
 
-use RedisComponent\Exceptions\LockerException;
 use Illuminate\Support\Facades\Redis;
 
 abstract class Locker
@@ -62,12 +61,11 @@ abstract class Locker
      * 锁定
      *
      * @return bool
-     * @throws LockerException
      */
     public function lock()
     {
         if (empty($this->key)) {
-            throw new LockerException('locker key is empty');
+            return null;
         }
 
         return (bool)Redis::connection($this->connection)->set($this->key, $this->uniqid, "EX", $this->ttl, "NX");
@@ -77,12 +75,11 @@ abstract class Locker
      * 解锁
      *
      * @return bool
-     * @throws LockerException
      */
     public function unlock()
     {
         if (empty($this->key)) {
-            throw new LockerException('locker key is empty');
+            return null;
         }
 
         $script = "if redis.call('get', KEYS[1]) == ARGV[1] then return redis.call('del', KEYS[1]) else return 0 end";

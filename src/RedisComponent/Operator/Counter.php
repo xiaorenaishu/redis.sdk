@@ -2,7 +2,6 @@
 
 namespace RedisComponent\Operator;
 
-use RedisComponent\Exceptions\CounterException;
 use Illuminate\Support\Facades\Redis;
 
 abstract class Counter
@@ -54,12 +53,11 @@ abstract class Counter
      * @param $num
      *
      * @return int|mixed
-     * @throws CounterException
      */
     public function incr($num)
     {
         if (empty($this->key)) {
-            throw new CounterException('counter key is empty');
+            return null;
         }
 
         $redis = Redis::connection($this->connection);
@@ -78,12 +76,11 @@ abstract class Counter
      * @param $num
      *
      * @return int
-     * @throws CounterException
      */
     public function decr($num)
     {
         if (empty($this->key)) {
-            throw new CounterException('counter key is empty');
+            return null;
         }
 
         $redis = Redis::connection($this->connection);
